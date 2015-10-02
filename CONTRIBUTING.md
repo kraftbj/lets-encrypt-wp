@@ -35,6 +35,10 @@ checks are passing. Feel free to submit the pull request prior to
 having all checks passing, but just know that it will not be merged
 until the checks are passing.
 
+All code is merged directly to master when it is ready for a merge.
+Individual releases will be tagged as necessary. When working on a
+patch branch off of master.
+
 ## Pull requests
 
 Maintainers of this project aim for a high level of test covered code.
