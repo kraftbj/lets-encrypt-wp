@@ -1,0 +1,32 @@
+{
+    "name": "tollmanz/lets-encrypt-wp",
+    "description": "A WordPress based Let's Encrypt client.",
+    "type": "wordpress-plugin",
+    "config": {
+        "vendor-dir": "src/vendor"
+    },
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^4.0.0",
+        "10up/wp_mock": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zack Tollman",
+            "email": "tollmanz@gmail.com"
+        },
+        {
+            "name": "John Blackbourn"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "LEWP\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": "./src/vendor/bin/phpunit --configuration=test/phpunit.xml --colors=always ./test/"
+    }
+}
