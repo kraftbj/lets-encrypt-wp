@@ -27,6 +27,6 @@
         }
     },
     "scripts": {
-        "test": "./src/vendor/bin/phpunit --configuration=test/phpunit.xml --colors=always ./test/"
+        "test": "./vendor/bin/phpunit --configuration=test/phpunit.xml --colors=always ./test/"
     }
 }
