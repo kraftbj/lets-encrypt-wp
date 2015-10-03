@@ -2,7 +2,9 @@
     "name": "tollmanz/lets-encrypt-wp",
     "description": "A WordPress based Let's Encrypt client.",
     "type": "wordpress-plugin",
-    "require": {},
+    "require": {
+        "namshi/jose": "dev-master"
+    },
     "require-dev": {
         "phpunit/phpunit": "^4.0.0",
         "10up/wp_mock": "dev-master",
