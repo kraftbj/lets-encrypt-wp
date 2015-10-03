@@ -8,4 +8,7 @@
         beStrictAboutTestSize="true"
         beStrictAboutChangesToGlobalState="true"
         >
+    <logging>
+        <log type="coverage-php" target="coverage/coverage.cov"/>
+    </logging>
 </phpunit>

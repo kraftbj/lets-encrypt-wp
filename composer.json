@@ -2,6 +2,27 @@
     "name": "tollmanz/lets-encrypt-wp",
     "description": "A WordPress based Let's Encrypt client.",
     "type": "wordpress-plugin",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "sebastianbergmann/phpcov",
+                "version": "1.1.0",
+                "dist": {
+                    "url": "https://github.com/sebastianbergmann/phpcov/archive/1.1.0.zip",
+                    "type": "zip"
+                },
+                "source": {
+                    "url": "https://github.com/sebastianbergmann/phpcov.git",
+                    "type": "git",
+                    "reference": "1.1.0"
+                },
+                "bin": [
+                    "phpcov.php"
+                ]
+            }
+        }
+    ],
     "require": {
         "namshi/jose": "dev-master"
     },
@@ -9,7 +30,9 @@
         "phpunit/phpunit": "^4.0.0",
         "10up/wp_mock": "dev-master",
         "squizlabs/php_codesniffer": "~2.2",
-        "wp-coding-standards/wpcs": "~0.7.1"
+        "wp-coding-standards/wpcs": "~0.7.1",
+        "sebastianbergmann/phpcov": "1.1.0",
+        "satooshi/php-coveralls": "dev-master"
     },
     "license": "MIT",
     "authors": [
