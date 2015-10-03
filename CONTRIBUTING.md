@@ -149,17 +149,17 @@ The [Thoughbot's] [contributing.md]  for the [Factory Girl Rails]
 project was a source of inspiration for this document. Thank you!
 
 [code of conduct]: https://github.com/tollmanz/lets-encrypt-wp/blob/master/CONDUCT.md
-[Composer]:
-[install Composer]:
-[PHPUnit]:
-[plugin testing scaffold]:
-[prominently championed]
-[Chris Hjartes]:
-[WP_Mock]:
-[WP CLI]:
+[Composer]: https://getcomposer.org/
+[install Composer]: https://getcomposer.org/doc/00-intro.md
+[PHPUnit]: https://phpunit.de/
+[plugin testing scaffold]: https://github.com/wp-cli/wp-cli/blob/v0.20.1/php/commands/scaffold.php#L584-L642
+[prominently championed] https://leanpub.com/grumpy-testing
+[Chris Hjartes]: http://www.littlehart.net/atthekeyboard/
+[WP_Mock]: https://github.com/10up/wp_mock
+[WP CLI]: http://wp-cli.org/
 [PHP_CodeSniffer]: https://github.com/squizlabs/PHP_CodeSniffer
-[WordPress Coding Standards sniffs]:
-[some person's excellent article]:
-[Thoughtbot's]:
-[Factory Girl Rails]:
+[WordPress Coding Standards sniffs]: https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards
+[Chris Beams' excellent article]: http://chris.beams.io/posts/git-commit/
+[Thoughtbot's]: https://thoughtbot.com/
+[Factory Girl Rails]: https://github.com/thoughtbot/factory_girl_rails
 [contributing.md]: https://github.com/thoughtbot/factory_girl_rails/blob/master/CONTRIBUTING.md
