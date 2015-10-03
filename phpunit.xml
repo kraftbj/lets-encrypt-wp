@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-        bootstrap="bootstrap.php"
+        bootstrap="./test/bootstrap.php"
         colors="always"
         beStrictAboutTestsThatDoNotTestAnything="true"
         checkForUnintentionallyCoveredCode="true"
@@ -9,6 +9,14 @@
         beStrictAboutChangesToGlobalState="true"
         >
     <logging>
-        <log type="coverage-php" target="coverage/coverage.cov"/>
+        <log type="coverage-clover" target="./build/logs/clover.xml"/>
     </logging>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+        <blacklist>
+            <directory suffix=".php">./vendor</directory>
+        </blacklist>
+    </filter>
 </phpunit>

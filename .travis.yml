@@ -9,11 +9,11 @@ php:
     - hhvm
 
 before_script:
-    - mkdir -p test/coverage
+    - mkdir -p build/logs
     - composer install
 
 script:
     - composer test
 
 after_script:
-    - php vendor/bin/coveralls
+    - php vendor/bin/coveralls -v
