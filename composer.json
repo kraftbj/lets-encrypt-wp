@@ -30,8 +30,8 @@
     },
     "scripts": {
         "test": "./vendor/bin/phpunit --configuration=phpunit.xml --colors=always ./test/tests/",
-        "style": "./vendor/bin/phpcs src",
-        "post-install-cmd": "mkdir -p build/logs && ./vendor/bin/phpcs --config-set installed_paths project.ruleset.xml",
-        "post-update-cmd": "mkdir -p build/logs && ./vendor/bin/phpcs --config-set installed_paths project.ruleset.xml"
+        "style": "./vendor/bin/phpcs --standard=WordPress src",
+        "post-install-cmd": "mkdir -p build/logs && ./vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+        "post-update-cmd": "mkdir -p build/logs && ./vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs"
     }
 }
