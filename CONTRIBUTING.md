@@ -153,7 +153,7 @@ project was a source of inspiration for this document. Thank you!
 [install Composer]: https://getcomposer.org/doc/00-intro.md
 [PHPUnit]: https://phpunit.de/
 [plugin testing scaffold]: https://github.com/wp-cli/wp-cli/blob/v0.20.1/php/commands/scaffold.php#L584-L642
-[prominently championed] https://leanpub.com/grumpy-testing
+[prominently championed]: https://leanpub.com/grumpy-testing
 [Chris Hjartes]: http://www.littlehart.net/atthekeyboard/
 [WP_Mock]: https://github.com/10up/wp_mock
 [WP CLI]: http://wp-cli.org/
