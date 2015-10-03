@@ -84,7 +84,6 @@ in an environment with PHP installed.
 Please note that the tests are executed in the build environment
 against the following PHP versions:
 
-* 5.3
 * 5.4
 * 5.5
 * 5.6
@@ -138,10 +137,11 @@ person's excellent article].
 
 ## Minimum PHP version
 
-The minimum PHP version for this project is PHP 5.3.3. While WordPress
+The minimum PHP version for this project is PHP 5.4. While WordPress
 still supports PHP 5.2, [WP CLI] supports PHP 5.3 and greater. The
-PHPUnit version used in the test suite requires PHP 5.3.3 and, thus,
-our minimum requirement is 5.3.3.
+library handling the JWS and JWK components is 5.4+ and unless we
+rewrite that library, we are stuck PHP 5.4+ as the minimum, which
+is not really that bad of a problem.
 
 ## Acknowledgement
 
