@@ -29,6 +29,9 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit --configuration=phpunit.xml --colors=always ./test/tests/"
+        "test": "./vendor/bin/phpunit --configuration=phpunit.xml --colors=always ./test/tests/",
+        "style": "./vendor/bin/phpcs src",
+        "post-install-cmd": "./vendor/bin/phpcs --config-set installed_paths project.ruleset.xml",
+        "post-update-cmd": "./vendor/bin/phpcs --config-set installed_paths project.ruleset.xml"
     }
 }

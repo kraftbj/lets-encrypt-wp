@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<ruleset name="Let's Encrypt WP">
+    <description>A custom set of rules to for Let's Encrypt WP</description>
+
+    <exclude-pattern>./vendor</exclude-pattern>
+
+    <rule ref="WordPress-Core" />
+</ruleset>
