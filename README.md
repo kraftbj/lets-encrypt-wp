@@ -1,3 +1,6 @@
+[![Coverage Status](https://coveralls.io/repos/tollmanz/lets-encrypt-wp/badge.svg?branch=master&service=github)](https://coveralls.io/github/tollmanz/lets-encrypt-wp?branch=master)
+[![Build Status](https://travis-ci.org/tollmanz/lets-encrypt-wp.svg?branch=master)](https://travis-ci.org/tollmanz/lets-encrypt-wp)
+
 ## Let's Encrypt WP
 
 More than just a name, Let's Encrypt WP is a battle cry to encrypt the
