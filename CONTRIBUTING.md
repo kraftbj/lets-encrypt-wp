@@ -148,7 +148,7 @@ is not really that bad of a problem.
 The [Thoughbot's] [contributing.md]  for the [Factory Girl Rails]
 project was a source of inspiration for this document. Thank you!
 
-[code of conduct]:
+[code of conduct]: https://github.com/tollmanz/lets-encrypt-wp/blob/master/CONDUCT.md
 [Composer]:
 [install Composer]:
 [PHPUnit]:

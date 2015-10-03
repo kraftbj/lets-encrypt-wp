@@ -35,5 +35,5 @@ Participants in the project must abide by our [Code of Conduct].
 
 [Let's Encrypt]: https://letsencrypt.org
 [Automatic Certificate Management Environment protocol (ACME)]: https://letsencrypt.github.io/acme-spec/
-[CONTRIBUTING.md document]:
-[Code of Conduct]:
+[CONTRIBUTING.md document]: https://github.com/tollmanz/lets-encrypt-wp/blob/master/CONTRIBUTING.md
+[Code of Conduct]: https://github.com/tollmanz/lets-encrypt-wp/blob/master/CONDUCT.md
