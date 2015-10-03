@@ -74,9 +74,9 @@ decoupled from WordPress.
 
 To run the tests, use the following command:
 
-    ```
-    composer test
-    ```
+```
+composer test
+```
 
 These tests only assume you have run `composer install` and are working
 in an environment with PHP installed.
@@ -104,9 +104,9 @@ There are some small deviations from this standard, which include:
 To review your code for adherence to the standard, you can use the
 following command:
 
-    ```
-    composer style
-    ```
+```
+composer style
+```
 
 PHP Code Sniffer tends to be very explicit in its reporting of
 violations, which make it relatively easy to address violations;
