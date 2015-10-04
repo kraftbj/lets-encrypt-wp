@@ -23,7 +23,7 @@ class DirectoryTest extends PHPUnit_Framework_TestCase {
 					'*',
 					'*',
 				),
-				'replace-nonce'               => 'Cee2LkvwXwSoMBC4nSRDQfeOzIGHb6WOEbtfpSwv4FI',
+				'replay-nonce'                => 'Cee2LkvwXwSoMBC4nSRDQfeOzIGHb6WOEbtfpSwv4FI',
 				'x-frame-options'             => 'DENY',
 				'strict-transport-security'   => 'max-age=604800',
 				'expires'                     => 'Sun, 04 Oct 2015 14:38:51 GMT',
