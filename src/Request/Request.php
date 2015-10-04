@@ -83,18 +83,7 @@ abstract class Request {
 		return $result;
 	}
 
-	public function build() {}
-
 	public function sign() {}
-
-	/**
-	 * @param  string       $type
-	 * @param  Resources    $Resources_Object
-	 * @return string
-	 */
-	public function locate_resource( $type, $Resources_Object ) {
-
-	}
 
 	/**
 	 * Get the response object from the request.
