@@ -22,7 +22,7 @@ class MockData {
 				'date'                        => 'Sun, 04 Oct 2015 14:38:51 GMT',
 				'connection'                  => 'close',
 			),
-			'body'     => '{"new-authz":"https://acme-staging.api.letsencrypt.org/acme/new-authz","new-cert":"https://acme-staging.api.letsencrypt.org/acme/new-cert","new-reg":"https://acme-staging.api.letsencrypt.org/acme/new-reg","revoke-cert":"https://acme-staging.api.letsencrypt.org/acme/revoke-cert"}',
+			'body'     => '{"new-authz":"https://acme.org/new-authz","new-cert":"https://acme.org/new-cert","new-reg":"https://acme.org/new-reg","revoke-cert":"https://acme.org/revoke-cert"}',
 			'response' => array(
 				'code'    => 200,
 				'message' => 'OK',
