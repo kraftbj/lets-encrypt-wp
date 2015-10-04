@@ -32,6 +32,13 @@ abstract class Request {
 	protected $request_nonce = '';
 
 	/**
+	 * CSRF token received from the request.
+	 *
+	 * @var string    The nonce to protect the next request against CSRF.
+	 */
+	protected $response_nonce = '';
+
+	/**
 	 * The named ACME resource type to fetch.
 	 *
 	 * @var string    The ACME request type (e.g., new-reg, new-cert).
@@ -155,6 +162,24 @@ abstract class Request {
 	 */
 	public function set_request_nonce( $request_nonce ) {
 		$this->request_nonce = $request_nonce;
+	}
+
+	/**
+	 * Get the nonce for the response.
+	 *
+	 * @return string    The nonce to protect the next request against CSRF.
+	 */
+	public function get_response_nonce() {
+		return $this->response_nonce;
+	}
+
+	/**
+	 * Set the nonce for the response.
+	 *
+	 * @param string    $response_nonce    The nonce to protect the next request against CSRF.
+	 */
+	public function set_response_nonce( $response_nonce ) {
+		$this->response_nonce = $response_nonce;
 	}
 
 	/**
