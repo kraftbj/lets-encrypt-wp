@@ -87,6 +87,10 @@ abstract class Request {
 			$this->set_body( $result['body'] );
 		}
 
+		if ( isset( $result['headers']['replay-nonce'] ) ) {
+			$this->set_response_nonce( $result['headers']['replay-nonce'] );
+		}
+
 		return $result;
 	}
 
