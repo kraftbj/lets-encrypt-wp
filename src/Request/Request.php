@@ -29,7 +29,7 @@ abstract class Request {
 	 *
 	 * @var string    The nonce to protect the request against CSRF.
 	 */
-	protected $nonce = '';
+	protected $request_nonce = '';
 
 	/**
 	 * The named ACME resource type to fetch.
@@ -144,17 +144,17 @@ abstract class Request {
 	 *
 	 * @return string    The nonce to protect the request against CSRF.
 	 */
-	public function get_nonce() {
-		return $this->nonce;
+	public function get_request_nonce() {
+		return $this->request_nonce;
 	}
 
 	/**
 	 * Set the nonce for the request.
 	 *
-	 * @param string    $nonce    The nonce to protect the request against CSRF.
+	 * @param string    $request_nonce    The nonce to protect the request against CSRF.
 	 */
-	public function set_nonce( $nonce ) {
-		$this->nonce = $nonce;
+	public function set_request_nonce( $request_nonce ) {
+		$this->request_nonce = $request_nonce;
 	}
 
 	/**
