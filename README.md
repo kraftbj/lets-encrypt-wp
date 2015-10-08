@@ -27,6 +27,12 @@ install it is using WordPress' plugin page. Search for
 If you would like to help develop the project, please see our
 documentation in our [CONTRIBUTING.md document].
 
+## Minimum Requirements ##
+
+**PHP:** 5.4.8  
+**WordPress:** 4.2.0  
+**WP-CLI:** 0.18.0  
+
 ## Contributing
 
 For full details on contributing to this project, please read our

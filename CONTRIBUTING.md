@@ -137,7 +137,7 @@ person's excellent article].
 
 ## Minimum PHP version
 
-The minimum PHP version for this project is PHP 5.4. While WordPress
+The minimum PHP version for this project is PHP 5.4.8. While WordPress
 still supports PHP 5.2, [WP CLI] supports PHP 5.3 and greater. The
 library handling the JWS and JWK components is 5.4+ and unless we
 rewrite that library, we are stuck PHP 5.4+ as the minimum, which
