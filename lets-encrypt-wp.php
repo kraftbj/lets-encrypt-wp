@@ -8,8 +8,6 @@
  * Author URI: https://www.tollmanz.com
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
+namespace LEWP;
 
-if ( defined( 'WP_CLI' ) && true === WP_CLI ) {
-	require_once __DIR__ . '/src/wp-cli/wp-cli.php';
-}
+require_once __DIR__ . '/vendor/autoload.php';
