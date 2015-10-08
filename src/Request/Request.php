@@ -1,6 +1,7 @@
 <?php
 
 namespace LEWP\Request;
+use \Namshi\JOSE\SimpleJWS;
 
 abstract class Request {
 	/**
@@ -94,7 +95,16 @@ abstract class Request {
 		return $result;
 	}
 
-	public function sign() {}
+	public function sign() {
+		$jws  = new SimpleJWS( array(
+			'alg' => 'RS256'
+		) );
+
+		$jws->setPayload( $this->get_body() );
+
+		$privateKey = openssl_pkey_get_private("file://path/to/private.key", self::SSL_KEY_PASSPHRASE);
+		$jws->sign($privateKey);
+	}
 
 	/**
 	 * Get the response object from the request.
