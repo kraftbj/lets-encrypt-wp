@@ -3,6 +3,7 @@
     "description": "A WordPress based Let's Encrypt client.",
     "type": "wordpress-plugin",
     "require": {
+    	"php": ">=5.4.8",
         "namshi/jose": "dev-master"
     },
     "require-dev": {
