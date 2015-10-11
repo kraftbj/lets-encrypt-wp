@@ -14,7 +14,7 @@ class NonceTest extends PHPUnit_Framework_TestCase {
 	}
 
 	private function make_request() {
-		$url  = 'http://acme.org/new-authz';
+		$url  = 'https://acme.example.org/new-authz';
 		$response = MockData::get_head_response();
 
 		\WP_Mock::setUp();

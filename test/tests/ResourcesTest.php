@@ -3,13 +3,13 @@
 class ResourcesTest extends PHPUnit_Framework_TestCase {
 	public function test_sanitize_urls_removes_bad_keys() {
 		$bad_list = array(
-			'bad-thing' => 'http://acme.org/bad-thing',
-			'old-reg'   => 'http://acme.org/old-reg',
+			'bad-thing' => 'https://acme.example.org/bad-thing',
+			'old-reg'   => 'https://acme.example.org/old-reg',
 		);
 
 		$good_list = array(
-			'new-reg'  => 'http://acme.org/new-reg',
-			'new-cert' => 'http://acme.org/new-cert',
+			'new-reg'  => 'https://acme.example.org/new-reg',
+			'new-cert' => 'https://acme.example.org/new-cert',
 		);
 
 		$test_list = array_merge( $bad_list, $good_list );
@@ -30,7 +30,7 @@ class ResourcesTest extends PHPUnit_Framework_TestCase {
 	}
 
 	private function get_directory_object() {
-		$url  = 'http://acme.org/directory';
+		$url  = 'https://acme.example.org/directory';
 		$args = array(
 			'body' => '',
 		);
