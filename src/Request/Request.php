@@ -120,12 +120,19 @@ abstract class Request {
 	 *
 	 * @param  KeyPair $keypair    A KeyPair object.
 	 * @param  string  $passphrase The passphrase for the KeyPair's private key.
+	 * @return bool True on success, false on failure.
 	 */
 	public function sign( \LEWP\Keys\KeyPair $keypair, $passphrase ) {
 
 		$signed = $this->generate_request_signature( $keypair, $passphrase );
 
+		if ( ! $signed ) {
+			return false;
+		}
+
 		$this->set_request_body( $signed );
+
+		return true;
 
 	}
 
@@ -134,14 +141,20 @@ abstract class Request {
 	 *
 	 * @param  KeyPair $keypair    A KeyPair object.
 	 * @param  string  $passphrase The passphrase for the KeyPair's private key.
-	 * @return array Signature used to sign the request.
+	 * @return array|bool Signature used to sign the request, boolean false if the request can't be signed.
 	 */
 	protected function generate_request_signature( \LEWP\Keys\KeyPair $keypair, $passphrase ) {
 
 		$nonce = $this->get_request_nonce();
 
 		if ( ! $nonce ) {
-			return $this->get_request_body();
+			return false;
+		}
+
+		$private_key = $keypair->export_private_key( $passphrase );
+
+		if ( ! $private_key ) {
+			return false;
 		}
 
 		$alg = 'RS256';
@@ -156,7 +169,7 @@ abstract class Request {
 
 		$jws->setHeader( $protected_header );
 		$jws->setPayload( $this->get_request_body() );
-		$jws->sign( $keypair->export_private_key( $passphrase ) );
+		$jws->sign( $private_key );
 		$sig = $jws->getTokenString();
 
 		return [
