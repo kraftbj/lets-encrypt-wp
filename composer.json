@@ -4,7 +4,7 @@
     "type": "wordpress-plugin",
     "require": {
     	"php": ">=5.4.8",
-        "namshi/jose": "dev-master"
+        "namshi/jose": "~6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.0.0",
