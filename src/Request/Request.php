@@ -33,6 +33,13 @@ abstract class Request {
 	protected $response_body = [];
 
 	/**
+	 * Array of headers for the request.
+	 *
+	 * @var array Array of headers keyed by their name.
+	 */
+	protected $request_headers = [];
+
+	/**
 	 * CSRF token for the request.
 	 *
 	 * @var string    The nonce to protect the request against CSRF.
@@ -89,6 +96,10 @@ abstract class Request {
 		$body = $this->get_request_body();
 		if ( ! empty( $body ) ) {
 			$args['body'] = json_encode( $body );
+		}
+		$headers = $this->get_request_headers();
+		if ( ! empty( $headers ) ) {
+			$args['headers'] = $headers;
 		}
 		$result = wp_remote_request( $this->get_resource(), $args );
 
@@ -190,6 +201,46 @@ abstract class Request {
 	 */
 	public function set_response_body( array $body ) {
 		$this->response_body = $body;
+	}
+
+	/**
+	 * Get a request header by its key.
+	 *
+	 * @param  string $name   The header name.
+	 * @return string The header value.
+	 */
+	public function get_request_header( $name ) {
+		if ( array_key_exists( $name, $this->reqest_headers ) ) {
+			return $this->request_headers[ $name ];
+		}
+		return false;
+	}
+
+	/**
+	 * Set a request header.
+	 *
+	 * @param string $name   The header name.
+	 * @param string $header The header value.
+	 */
+	public function set_request_header( $name, $value ) {
+		$this->request_headers[ $name ] = $value;
+	}
+
+	/**
+	 * Get all of the request headers.
+	 *
+	 * @return array Array of request headers keyed by name.
+	 */
+	public function get_request_headers() {
+		$headers = $this->request_headers;
+
+		$nonce = $this->get_request_nonce();
+
+		if ( $nonce ) {
+			$headers['Replay-Nonce'] = $nonce;
+		}
+
+		return $headers;
 	}
 
 	/**
