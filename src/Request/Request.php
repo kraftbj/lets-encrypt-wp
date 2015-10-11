@@ -2,6 +2,7 @@
 
 namespace LEWP\Request;
 use \Namshi\JOSE\SimpleJWS;
+use \Namshi\JOSE\Base64\Base64UrlSafeEncoder;
 
 abstract class Request {
 	/**
@@ -61,13 +62,6 @@ abstract class Request {
 	protected $type = '';
 
 	/**
-	 * The private key used to sign the request.
-	 *
-	 * @var string    The private key used to sign the request to create the JSW object.
-	 */
-	protected $private_key = '';
-
-	/**
 	 * The request method.
 	 *
 	 * @var string    The method used for the request.
@@ -84,6 +78,7 @@ abstract class Request {
 	public function __construct( $resource = '', $method = 'GET' ) {
 		$this->set_resource( $resource );
 		$this->set_method( $method );
+		$this->encoder = new Base64UrlSafeEncoder;
 	}
 
 	/**
@@ -120,15 +115,61 @@ abstract class Request {
 		return $result;
 	}
 
-	public function sign() {
-		$jws  = new SimpleJWS( array(
-			'alg' => 'RS256'
-		) );
+	/**
+	 * Sign the request using a passphrase-protected public/private key pair.
+	 *
+	 * @param  KeyPair $keypair    A KeyPair object.
+	 * @param  string  $passphrase The passphrase for the KeyPair's private key.
+	 */
+	public function sign( \LEWP\Keys\KeyPair $keypair, $passphrase ) {
 
+		$signed = $this->generate_request_signature( $keypair, $passphrase );
+
+		$this->set_request_body( $signed );
+
+	}
+
+	/**
+	 * Generate a signature used to sign the request.
+	 *
+	 * @param  KeyPair $keypair    A KeyPair object.
+	 * @param  string  $passphrase The passphrase for the KeyPair's private key.
+	 * @return array Signature used to sign the request.
+	 */
+	protected function generate_request_signature( \LEWP\Keys\KeyPair $keypair, $passphrase ) {
+
+		$nonce = $this->get_request_nonce();
+
+		if ( ! $nonce ) {
+			return $this->get_request_body();
+		}
+
+		$alg = 'RS256';
+		$jws = new SimpleJWS( [
+			'alg' => $alg,
+		] );
+
+		$protected_header = [
+			'alg'   => $alg,
+			'nonce' => $nonce,
+		];
+
+		$jws->setHeader( $protected_header );
 		$jws->setPayload( $this->get_request_body() );
+		$jws->sign( $keypair->export_private_key( $passphrase ) );
+		$sig = $jws->getTokenString();
 
-		$privateKey = openssl_pkey_get_private("file://path/to/private.key", self::SSL_KEY_PASSPHRASE);
-		$jws->sign($privateKey);
+		return [
+			'header'    => [
+				'alg' => $alg,
+				'jwk' => $keypair->get_public_key(),
+			],
+			'protected' => $this->encoder->encode( json_encode( $protected_header, JSON_UNESCAPED_SLASHES ) ),
+			'payload'   => $this->encoder->encode( json_encode( $this->get_request_body(), JSON_UNESCAPED_SLASHES ) ),
+			'signature' => $this->encoder->encode( $sig ),
+		];
+
+
 	}
 
 	/**
@@ -295,24 +336,6 @@ abstract class Request {
 	 */
 	public function set_type( $type ) {
 		$this->type = $type;
-	}
-
-	/**
-	 * Get the private key for signing the request.
-	 *
-	 * @return string    The private key used to sign the request to create the JSW object.
-	 */
-	public function get_private_key() {
-		return $this->private_key;
-	}
-
-	/**
-	 * Set the private key for signing the request.
-	 *
-	 * @param string    $private_key    The private key used to sign the request to create the JSW object.
-	 */
-	public function set_private_key( $private_key ) {
-		$this->private_key = $private_key;
 	}
 
 	/**
