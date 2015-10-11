@@ -90,7 +90,7 @@ abstract class Request {
 		$args = [];
 		$body = $this->get_request_body();
 		if ( ! empty( $body ) ) {
-			$args['body'] = json_encode( $body );
+			$args['body'] = json_encode( $body, JSON_UNESCAPED_SLASHES );
 		}
 		$headers = $this->get_request_headers();
 		if ( ! empty( $headers ) ) {

@@ -11,7 +11,6 @@ class DirectoryTest extends PHPUnit_Framework_TestCase {
 	public function test_send_generates_response_and_sets_properties() {
 		$url  = 'https://acme.example.org/directory';
 		$args = array(
-			'body' => '',
 		);
 
 		$response = MockData::get_directory_response();
@@ -31,7 +30,7 @@ class DirectoryTest extends PHPUnit_Framework_TestCase {
 		$directory = new \LEWP\Request\Directory( $url );
 		$this->assertEquals( $response, $directory->send() );
 		$this->assertEquals( $response, $directory->get_response() );
-		$this->assertEquals( $response['body'], $directory->get_response_body() );
+		$this->assertEquals( $response['body'], \json_encode( $directory->get_response_body(), JSON_UNESCAPED_SLASHES ) );
 		$this->assertEquals( $response['headers']['replay-nonce'], $directory->get_response_nonce() );
 
 		\WP_Mock::tearDown();

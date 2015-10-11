@@ -14,7 +14,7 @@ class ResourcesTest extends PHPUnit_Framework_TestCase {
 
 		$test_list = array_merge( $bad_list, $good_list );
 
-		$resources = new LEWP\Resources\Resources( json_encode( $test_list ) );
+		$resources = new LEWP\Resources\Resources( $test_list );
 
 		$this->assertEquals( $good_list, $resources->get_resource_urls() );
 	}
@@ -32,7 +32,6 @@ class ResourcesTest extends PHPUnit_Framework_TestCase {
 	private function get_directory_object() {
 		$url  = 'https://acme.example.org/directory';
 		$args = array(
-			'body' => '',
 		);
 
 		$response = MockData::get_directory_response();

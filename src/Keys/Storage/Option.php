@@ -12,7 +12,7 @@ class Option extends Storage {
 
 		$public  = $keypair->get_public_key();
 		$private = $keypair->get_private_key();
-		$option  = \json_encode( compact( 'public', 'private' ) );
+		$option  = \json_encode( compact( 'public', 'private' ), JSON_UNESCAPED_SLASHES );
 
 		return \update_site_option( sprintf( self::$option_name, $keypair->get_id() ), $option );
 

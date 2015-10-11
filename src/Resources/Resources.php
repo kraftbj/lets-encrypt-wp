@@ -13,9 +13,9 @@ class Resources {
 	/**
 	 * Construct the object.
 	 *
-	 * @param  string    $directory_request_body    The response from a Directory object request.
+	 * @param  array $directory_request_body The response from a Directory object request.
 	 */
-	public function __construct( $directory_request_body = '' ) {
+	public function __construct( array $directory_request_body = array() ) {
 		if ( ! empty( $directory_request_body ) ) {
 			$resources = $this->extract_resources( $directory_request_body );
 			$this->set_resource_urls( $resources );
@@ -25,12 +25,11 @@ class Resources {
 	/**
 	 * Get the resources out of a request body.
 	 *
-	 * @param  string    $directory_request_body   JSON string with resources.
-	 * @return array                               Array of sanitized resources.
+	 * @param  array $directory_request_body The response from a Directory object request.
+	 * @return array                         Array of sanitized resources.
 	 */
-	private function extract_resources( $directory_request_body ) {
-		$body      = json_decode( $directory_request_body, true );
-		$resources = $this->sanitize_resource_list( $body );
+	private function extract_resources( array $directory_request_body ) {
+		$resources = $this->sanitize_resource_list( $directory_request_body );
 
 		return $resources;
 	}
@@ -41,7 +40,7 @@ class Resources {
 	 * @param  array    $resources    The list of resources with resource name as a key.
 	 * @return array                  The cleaned list of resources.
 	 */
-	private function sanitize_resource_list( $resources ) {
+	private function sanitize_resource_list( array $resources ) {
 		$clean_resources       = array();
 		$whitelisted_resources = $this->resource_whitelist();
 
@@ -82,7 +81,7 @@ class Resources {
 	 * @param  array    $urls    A list of resource URLs.
 	 * @return void
 	 */
-	public function set_resource_urls( $urls ) {
+	public function set_resource_urls( array $urls ) {
 		$this->resource_urls = $urls;
 	}
 
