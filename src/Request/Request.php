@@ -21,16 +21,16 @@ abstract class Request {
 	/**
 	 * The body content for the request.
 	 *
-	 * @var string    The body content to send with the request.
+	 * @var array The body content to send with the request.
 	 */
-	protected $request_body = '';
+	protected $request_body = [];
 
 	/**
 	 * The body content from the response.
 	 *
-	 * @var string    The body content received in the response.
+	 * @var array The body content received in the response.
 	 */
-	protected $response_body = '';
+	protected $response_body = [];
 
 	/**
 	 * CSRF token for the request.
@@ -85,14 +85,21 @@ abstract class Request {
 	 * @return array|\WP_Error    An array of response information on success; \WP_Error on failure.
 	 */
 	public function send() {
-		$result = wp_remote_request( $this->get_resource(), array(
-			'body' => $this->get_request_body(),
-		) );
+		$args = [];
+		$body = $this->get_request_body();
+		if ( ! empty( $body ) ) {
+			$args['body'] = json_encode( $body );
+		}
+		$result = wp_remote_request( $this->get_resource(), $args );
 
 		$this->set_response( $result );
 
 		if ( is_array( $result ) && isset( $result['body'] ) ) {
-			$this->set_response_body( $result['body'] );
+			$decoded = json_decode( $result['body'], true );
+			if ( ! $decoded ) {
+				$decoded = array();
+			}
+			$this->set_response_body( $decoded );
 		}
 
 		if ( isset( $result['headers']['replay-nonce'] ) ) {
@@ -152,7 +159,7 @@ abstract class Request {
 	/**
 	 * Get the request body.
 	 *
-	 * @return string    The body content to send with the request.
+	 * @return array The body content to send with the request.
 	 */
 	public function get_request_body() {
 		return $this->request_body;
@@ -161,16 +168,16 @@ abstract class Request {
 	/**
 	 * Set the request body.
 	 *
-	 * @param string    $body    The body content to send with the request.
+	 * @param array $body    The body content to send with the request.
 	 */
-	public function set_request_body( $body ) {
+	public function set_request_body( array $body ) {
 		$this->request_body = $body;
 	}
 
 	/**
 	 * Get the response body.
 	 *
-	 * @return string    The body content received in the response.
+	 * @return array The body content received in the response.
 	 */
 	public function get_response_body() {
 		return $this->response_body;
@@ -179,9 +186,9 @@ abstract class Request {
 	/**
 	 * Set the response body.
 	 *
-	 * @param string    $body    The body content received in the response.
+	 * @param array $body The body content received in the response.
 	 */
-	public function set_response_body( $body ) {
+	public function set_response_body( array $body ) {
 		$this->response_body = $body;
 	}
 
