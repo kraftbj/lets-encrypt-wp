@@ -13,7 +13,7 @@ class Resources {
 	/**
 	 * Construct the object.
 	 *
-	 * @param  string    $directory_request_body    The response from a Directory object request response.
+	 * @param  string    $directory_request_body    The response from a Directory object request.
 	 */
 	public function __construct( $directory_request_body = '' ) {
 		if ( ! empty( $directory_request_body ) ) {

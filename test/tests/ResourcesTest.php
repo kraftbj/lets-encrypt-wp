@@ -21,7 +21,7 @@ class ResourcesTest extends PHPUnit_Framework_TestCase {
 
 	public function test_resources_are_correctly_extracted() {
 		$directory = $this->get_directory_object();
-		$resources = new LEWP\Resources\Resources( $directory->get_body() );
+		$resources = new LEWP\Resources\Resources( $directory->get_response_body() );
 
 		$data = MockData::get_directory_response();
 		$data = json_decode( $data['body'], true );

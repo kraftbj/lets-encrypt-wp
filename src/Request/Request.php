@@ -23,7 +23,14 @@ abstract class Request {
 	 *
 	 * @var string    The body content to send with the request.
 	 */
-	protected $body = '';
+	protected $request_body = '';
+
+	/**
+	 * The body content from the response.
+	 *
+	 * @var string    The body content received in the response.
+	 */
+	protected $response_body = '';
 
 	/**
 	 * CSRF token for the request.
@@ -79,13 +86,13 @@ abstract class Request {
 	 */
 	public function send() {
 		$result = wp_remote_request( $this->get_resource(), array(
-			'body' => $this->get_body(),
+			'body' => $this->get_request_body(),
 		) );
 
 		$this->set_response( $result );
 
 		if ( is_array( $result ) && isset( $result['body'] ) ) {
-			$this->set_body( $result['body'] );
+			$this->set_response_body( $result['body'] );
 		}
 
 		if ( isset( $result['headers']['replay-nonce'] ) ) {
@@ -100,7 +107,7 @@ abstract class Request {
 			'alg' => 'RS256'
 		) );
 
-		$jws->setPayload( $this->get_body() );
+		$jws->setPayload( $this->get_request_body() );
 
 		$privateKey = openssl_pkey_get_private("file://path/to/private.key", self::SSL_KEY_PASSPHRASE);
 		$jws->sign($privateKey);
@@ -147,8 +154,8 @@ abstract class Request {
 	 *
 	 * @return string    The body content to send with the request.
 	 */
-	public function get_body() {
-		return $this->body;
+	public function get_request_body() {
+		return $this->request_body;
 	}
 
 	/**
@@ -156,8 +163,26 @@ abstract class Request {
 	 *
 	 * @param string    $body    The body content to send with the request.
 	 */
-	public function set_body( $body ) {
-		$this->body = $body;
+	public function set_request_body( $body ) {
+		$this->request_body = $body;
+	}
+
+	/**
+	 * Get the response body.
+	 *
+	 * @return string    The body content received in the response.
+	 */
+	public function get_response_body() {
+		return $this->response_body;
+	}
+
+	/**
+	 * Set the response body.
+	 *
+	 * @param string    $body    The body content received in the response.
+	 */
+	public function set_response_body( $body ) {
+		$this->response_body = $body;
 	}
 
 	/**

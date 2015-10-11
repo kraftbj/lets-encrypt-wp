@@ -31,7 +31,7 @@ class DirectoryTest extends PHPUnit_Framework_TestCase {
 		$directory = new \LEWP\Request\Directory( $url );
 		$this->assertEquals( $response, $directory->send() );
 		$this->assertEquals( $response, $directory->get_response() );
-		$this->assertEquals( $response['body'], $directory->get_body() );
+		$this->assertEquals( $response['body'], $directory->get_response_body() );
 		$this->assertEquals( $response['headers']['replay-nonce'], $directory->get_response_nonce() );
 
 		\WP_Mock::tearDown();
