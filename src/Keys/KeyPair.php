@@ -48,10 +48,10 @@ class KeyPair {
 
 	}
 
-	public function read( $keypair ) {
+	public function read( array $keypair ) {
 
-		$this->private_key = $keypair->private;
-		$this->public_key  = $keypair->public;
+		$this->private_key = $keypair['private'];
+		$this->public_key  = $keypair['public'];
 
 	}
 

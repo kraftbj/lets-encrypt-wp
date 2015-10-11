@@ -13,7 +13,7 @@ class Memory extends Storage {
 		$public  = $keypair->get_public_key();
 		$private = $keypair->get_private_key();
 
-		$this->keypairs[ $keypair->get_id() ] = (object) compact( 'public', 'private' );
+		$this->keypairs[ $keypair->get_id() ] = compact( 'public', 'private' );
 
 		return true;
 

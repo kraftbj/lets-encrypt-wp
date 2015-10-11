@@ -12,7 +12,7 @@ class Option extends Storage {
 
 		$public  = $keypair->get_public_key();
 		$private = $keypair->get_private_key();
-		$option  = \wp_json_encode( (object) compact( 'public', 'private' ) );
+		$option  = \json_encode( compact( 'public', 'private' ) );
 
 		return \update_site_option( sprintf( self::$option_name, $keypair->get_id() ), $option );
 
