@@ -10,8 +10,8 @@ class Memory extends Storage {
 
 	public function save( KeyPair $keypair ) {
 
-		$public  = $keypair->export_public_key();
-		$private = $keypair->export_private_key();
+		$public  = $keypair->get_public_key();
+		$private = $keypair->get_private_key();
 
 		$this->keypairs[ $keypair->get_id() ] = (object) compact( 'public', 'private' );
 

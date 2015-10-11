@@ -10,8 +10,8 @@ class Option extends Storage {
 
 	public function save( KeyPair $keypair ) {
 
-		$public  = $keypair->export_public_key();
-		$private = $keypair->export_private_key();
+		$public  = $keypair->get_public_key();
+		$private = $keypair->get_private_key();
 		$option  = \wp_json_encode( (object) compact( 'public', 'private' ) );
 
 		return \update_site_option( sprintf( self::$option_name, $keypair->get_id() ), $option );

@@ -29,7 +29,7 @@ class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( __NAMESPACE__ . '\KeyPair', $test );
 		$this->assertSame( $id, $test->get_id() );
 
-		$private = $test->get_private_key( 'foo' );
+		$private = $test->export_private_key( 'foo' );
 
 		$this->assertNotFalse( $private );
 		$this->assertInternalType( 'resource', $private );
@@ -47,11 +47,11 @@ class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( __NAMESPACE__ . '\KeyPair', $test );
 		$this->assertSame( $id, $test->get_id() );
 
-		$private = $test->get_private_key( 'foo' );
+		$private = $test->export_private_key( 'foo' );
 
 		$this->assertFalse( $private );
 
-		$private = $test->get_private_key( 'bar' );
+		$private = $test->export_private_key( 'bar' );
 
 		$this->assertNotFalse( $private );
 		$this->assertInternalType( 'resource', $private );

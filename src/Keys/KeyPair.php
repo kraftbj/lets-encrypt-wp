@@ -56,26 +56,31 @@ class KeyPair {
 	}
 
 	/**
-	 * Export the encrypted private key.
+	 * Get the public key.
+	 *
+	 * @return string The public key.
+	 */
+	public function get_public_key() {
+		return $this->public_key;
+	}
+
+	/**
+	 * Get the encrypted private key.
 	 *
 	 * @return string The encrypted private key in PEM format.
 	 */
-	public function export_private_key() {
+	public function get_private_key() {
 		return $this->private_key;
 	}
 
 	/**
-	 * Get the decrypted private key resource.
+	 * Export the decrypted private key resource.
 	 *
 	 * @param  string $passphrase The passphrase to decrypt the private key.
 	 * @return resource The decrypted private key resource.
 	 */
-	public function get_private_key( $passphrase ) {
+	public function export_private_key( $passphrase ) {
 		return openssl_pkey_get_private( $this->private_key, $passphrase );
-	}
-
-	public function export_public_key() {
-		return $this->public_key;
 	}
 
 }
