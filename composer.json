@@ -21,7 +21,8 @@
             "email": "tollmanz@gmail.com"
         },
         {
-            "name": "John Blackbourn"
+            "name": "John Blackbourn",
+            "homepage": "https://johnblackbourn.com"
         }
     ],
     "minimum-stability": "stable",
