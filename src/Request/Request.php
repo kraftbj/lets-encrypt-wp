@@ -89,13 +89,17 @@ abstract class Request {
 	public function send() {
 		$args = [];
 		$body = $this->get_request_body();
+
 		if ( ! empty( $body ) ) {
 			$args['body'] = json_encode( $body, JSON_UNESCAPED_SLASHES );
 		}
+
 		$headers = $this->get_request_headers();
+
 		if ( ! empty( $headers ) ) {
 			$args['headers'] = $headers;
 		}
+
 		$result = wp_remote_request( $this->get_resource(), $args );
 
 		$this->set_response( $result );
@@ -148,6 +152,7 @@ abstract class Request {
 		$nonce = $this->get_request_nonce();
 
 		if ( ! $nonce ) {
+			// @TODO: Instead of returning, perhaps we should generate a nonce here
 			return false;
 		}
 
@@ -157,6 +162,7 @@ abstract class Request {
 			return false;
 		}
 
+		// @TODO: We'll likely want to make the algorithm a parameter for the method
 		$alg = 'RS256';
 		$jws = new SimpleJWS( [
 			'alg' => $alg,
