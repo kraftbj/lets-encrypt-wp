@@ -182,6 +182,46 @@ abstract class Request {
 			'signature' => $this->encoder->encode( $sig ),
 		];
 
+	}
+
+	/**
+	 * Verifies the response's signature.
+	 *
+	 * @return bool Whether the response signature has been verified or not.
+	 */
+	protected function verify_response_signature() {
+
+		$response = $this->get_response_body();
+
+		if ( empty( $response['signature'] ) ) {
+			return false;
+		}
+		if ( empty( $response['protected'] ) ) {
+			return false;
+		}
+		if ( empty( $response['header'] ) ) {
+			return false;
+		}
+		if ( empty( $response['header']['jwk'] ) ) {
+			return false;
+		}
+		if ( empty( $response['header']['alg'] ) || ! preg_match( '/^RS/', $response['header']['alg'] ) ) {
+			return false;
+		}
+
+		$jws = SimpleJWS::load( $response['signature'] );
+
+		if ( ! $jws->isValid( $response['header']['jwk'], $response['header']['alg'] ) ) {
+			return false;
+		}
+
+		list( $protected64, $payload64, $signature64 ) = explode( '.', $this->encoder->decode( $response['signature'] ) );
+
+		if ( $response['payload'] !== $payload64 ) {
+			return false;
+		}
+
+		return true;
 
 	}
 
