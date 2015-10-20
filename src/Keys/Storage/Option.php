@@ -26,7 +26,7 @@ class Option extends Storage {
 			return false;
 		}
 
-		$pair = \json_decode( $value, false );
+		$pair = \json_decode( $value, true );
 
 		if ( ! $pair ) {
 			return false;
