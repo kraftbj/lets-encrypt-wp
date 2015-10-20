@@ -132,6 +132,41 @@ class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 
 	}
 
+	public function test_storage_option_get_when_pair_is_not_found() {
+		// Mock the remote request
+		\WP_Mock::wpFunction( 'update_site_option', array(
+			'args'   => array(
+				\WP_Mock\Functions::type( 'string' ),
+				\WP_Mock\Functions::type( 'string' ),
+			),
+			'times'  => 1,
+			'return' => true,
+		) );
+
+		$id = __FUNCTION__;
+
+		// Create
+		$keypair = new KeyPair( $id );
+		$keypair->generate( 'foo' );
+
+		$storage = \LEWP\Keys\Storage\Option::get_instance();
+		$save    = $storage->save( $keypair );
+
+		$this->assertTrue( $save );
+
+		// Read
+		\WP_Mock::wpFunction( 'get_site_option', array(
+			'args'   => array(
+				\WP_Mock\Functions::type( 'string' ),
+			),
+			'times'  => 1,
+			'return' => '',
+		) );
+
+		$test = $storage->get( $id );
+		$this->assertFalse( $test );
+	}
+
 	public function data_storage_controllers() {
 		$data = array(
 			array( 'Memory' ),
