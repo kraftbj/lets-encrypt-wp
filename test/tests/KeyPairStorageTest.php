@@ -161,7 +161,7 @@ class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 				WP_Mock\Functions::type( 'string' ),
 			),
 			'times'  => 1,
-			'return' => '',
+			'return' => '{',
 		) );
 
 		$test = $storage->get( $id );
