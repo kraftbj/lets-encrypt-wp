@@ -15,9 +15,6 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 		$keypair->generate( 'foo' );
 
 		$request->sign( $keypair, 'foo' );
-
-		var_dump($request->get_request_body());
-
 	}
 
 }
