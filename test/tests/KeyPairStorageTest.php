@@ -1,15 +1,16 @@
 <?php
 
 namespace LEWP\Keys;
+use \WP_Mock;
 
 class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 
 	public function setUp() {
-		\WP_Mock::setUp();
+		WP_Mock::setUp();
 	}
 
 	public function tearDown() {
-		\WP_Mock::tearDown();
+		WP_Mock::tearDown();
 	}
 
 	/**
@@ -22,10 +23,10 @@ class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 		// When using the option version, always have update option return true
 		if ( 'Option' === $class ) {
 			// Mock the remote request
-			\WP_Mock::wpFunction( 'update_site_option', array(
+			WP_Mock::wpFunction( 'update_site_option', array(
 				'args'   => array(
-					\WP_Mock\Functions::type( 'string' ),
-					\WP_Mock\Functions::type( 'string' ),
+					WP_Mock\Functions::type( 'string' ),
+					WP_Mock\Functions::type( 'string' ),
 				),
 				'times'  => 2,
 				'return' => true,
@@ -47,9 +48,9 @@ class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 		// Read
 		if ( 'Option' === $class ) {
 			// Mock the remote request
-			\WP_Mock::wpFunction( 'get_site_option', array(
+			WP_Mock::wpFunction( 'get_site_option', array(
 				'args'   => array(
-					\WP_Mock\Functions::type( 'string' ),
+					WP_Mock\Functions::type( 'string' ),
 				),
 				'times'  => 1,
 				'return' => \json_encode( array( 'public' => $keypair->get_public_key(), 'private' => $keypair->get_private_key() ), JSON_UNESCAPED_SLASHES ),
@@ -76,9 +77,9 @@ class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 
 		if ( 'Option' === $class ) {
 			// Mock the remote request
-			\WP_Mock::wpFunction( 'get_site_option', array(
+			WP_Mock::wpFunction( 'get_site_option', array(
 				'args'   => array(
-					\WP_Mock\Functions::type( 'string' ),
+					WP_Mock\Functions::type( 'string' ),
 				),
 				'times'  => 1,
 				'return' => \json_encode( array( 'public' => $keypair->get_public_key(), 'private' => $keypair->get_private_key() ), JSON_UNESCAPED_SLASHES ),
@@ -102,9 +103,9 @@ class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 		// Delete
 		if ( 'Option' === $class ) {
 			// Mock the remote request
-			\WP_Mock::wpFunction( 'delete_site_option', array(
+			WP_Mock::wpFunction( 'delete_site_option', array(
 				'args'   => array(
-					\WP_Mock\Functions::type( 'string' ),
+					WP_Mock\Functions::type( 'string' ),
 				),
 				'times'  => 1,
 				'return' => true,
@@ -117,9 +118,9 @@ class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 
 		if ( 'Option' === $class ) {
 			// Mock the remote request
-			\WP_Mock::wpFunction( 'get_site_option', array(
+			WP_Mock::wpFunction( 'get_site_option', array(
 				'args'   => array(
-					\WP_Mock\Functions::type( 'string' ),
+					WP_Mock\Functions::type( 'string' ),
 				),
 				'times'  => 1,
 				'return' => false,
@@ -134,10 +135,10 @@ class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 
 	public function test_storage_option_get_when_pair_is_not_found() {
 		// Mock the remote request
-		\WP_Mock::wpFunction( 'update_site_option', array(
+		WP_Mock::wpFunction( 'update_site_option', array(
 			'args'   => array(
-				\WP_Mock\Functions::type( 'string' ),
-				\WP_Mock\Functions::type( 'string' ),
+				WP_Mock\Functions::type( 'string' ),
+				WP_Mock\Functions::type( 'string' ),
 			),
 			'times'  => 1,
 			'return' => true,
@@ -149,15 +150,15 @@ class KeyPairStorageTest extends \PHPUnit_Framework_TestCase {
 		$keypair = new KeyPair( $id );
 		$keypair->generate( 'foo' );
 
-		$storage = \LEWP\Keys\Storage\Option::get_instance();
+		$storage = Storage\Option::get_instance();
 		$save    = $storage->save( $keypair );
 
 		$this->assertTrue( $save );
 
 		// Read
-		\WP_Mock::wpFunction( 'get_site_option', array(
+		WP_Mock::wpFunction( 'get_site_option', array(
 			'args'   => array(
-				\WP_Mock\Functions::type( 'string' ),
+				WP_Mock\Functions::type( 'string' ),
 			),
 			'times'  => 1,
 			'return' => '',
