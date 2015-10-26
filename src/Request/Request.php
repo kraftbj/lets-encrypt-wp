@@ -181,6 +181,8 @@ abstract class Request {
 		return [
 			'header'    => [
 				'alg' => $alg,
+
+				// @TODO: this needs to be a JWK representation of the Key, not the PEM representation
 				'jwk' => $keypair->get_public_key(),
 			],
 			'protected' => $this->encoder->encode( json_encode( $protected_header, JSON_UNESCAPED_SLASHES ) ),
