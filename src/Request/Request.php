@@ -69,6 +69,13 @@ abstract class Request {
 	protected $method = 'GET';
 
 	/**
+	 * The request signature.
+	 *
+	 * @var string The signature used for the request.
+	 */
+	protected $signature = '';
+
+	/**
 	 * Construct the request object.
 	 *
 	 * @param  string     $resource    The REST resource URL.
@@ -88,8 +95,13 @@ abstract class Request {
 	 */
 	public function send() {
 		$args = [];
+
+		$signature = $this->get_signature();
 		$body = $this->get_request_body();
-		if ( ! empty( $body ) ) {
+
+		if ( ! empty( $signature ) ) {
+			$args['body'] = $signature;
+		} elseif ( ! empty( $body ) ) {
 			$args['body'] = json_encode( $body, JSON_UNESCAPED_SLASHES );
 		}
 		$headers = $this->get_request_headers();
@@ -130,7 +142,7 @@ abstract class Request {
 			return false;
 		}
 
-		$this->set_request_body( $signed );
+		$this->set_signature( $signed );
 
 		return true;
 
@@ -141,7 +153,7 @@ abstract class Request {
 	 *
 	 * @param  KeyPair $keypair    A KeyPair object.
 	 * @param  string  $passphrase The passphrase for the KeyPair's private key.
-	 * @return array|bool Signature used to sign the request, boolean false if the request can't be signed.
+	 * @return string|bool Signature used to sign the request, boolean false if the request can't be signed.
 	 */
 	protected function generate_request_signature( \LEWP\Keys\KeyPair $keypair, $passphrase ) {
 
@@ -157,31 +169,22 @@ abstract class Request {
 			return false;
 		}
 
+		$details = openssl_pkey_get_details( $private_key );
+
 		$alg = 'RS256';
 		$jws = new SimpleJWS( [
-			'alg' => $alg,
-		] );
-
-		$protected_header = [
 			'alg'   => $alg,
 			'nonce' => $nonce,
-		];
+			'jwk'   => [
+			    'kty' => 'RSA',
+			    'n'   => $this->encoder->encode( $details['rsa']['n'] ),
+			    'e'   => $this->encoder->encode( $details['rsa']['e'] ),
+			],
+		] );
 
-		$jws->setHeader( $protected_header );
 		$jws->setPayload( $this->get_request_body() );
 		$jws->sign( $private_key );
-		$sig = $jws->getTokenString();
-
-		return [
-			'header'    => [
-				'alg' => $alg,
-				'jwk' => $keypair->get_public_key(),
-			],
-			'protected' => $this->encoder->encode( json_encode( $protected_header, JSON_UNESCAPED_SLASHES ) ),
-			'payload'   => $this->encoder->encode( json_encode( $this->get_request_body(), JSON_UNESCAPED_SLASHES ) ),
-			'signature' => $this->encoder->encode( $sig ),
-		];
-
+		return $jws->getTokenString();
 
 	}
 
@@ -368,4 +371,23 @@ abstract class Request {
 	public function set_method( $method ) {
 		$this->method = $method;
 	}
+
+	/**
+	 * Get the request signature.
+	 *
+	 * @return string The signature used for the request.
+	 */
+	public function get_signature() {
+		return $this->signature;
+	}
+
+	/**
+	 * Set the request signature.
+	 *
+	 * @param string $signature The signature used for the request.
+	 */
+	public function set_signature( $signature ) {
+		$this->signature = $signature;
+	}
+
 }
